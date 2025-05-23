@@ -11,9 +11,12 @@ import CoreData
 class HomeViewController: UIViewController {
     
     private var price: [Price] = []
-    private var context: NSManagedObjectContext!
+    
+    private var context: NSManagedObjectContext = UIApplication.viewContext
     
     private var homeView: HomeView!
+    
+    private var tableViewController = TableViewController()
     
     override func loadView() {
         homeView = HomeView()
@@ -24,17 +27,12 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
         homeView.textFieldAlcool.delegate = self
         homeView.textFieldGasolina.delegate = self
         
         homeView.buttonCalculate.addTarget(self, action: #selector(calculate), for: .touchUpInside)
         homeView.buttonReset.addTarget(self, action: #selector(clearResults), for: .touchUpInside)
         
-        //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-        //            self.autenticarComFaceID()
-        //        }
     }
     
     func savePrice(price: Double) {
@@ -68,6 +66,7 @@ class HomeViewController: UIViewController {
             homeView.labelResult.text = "Gasolina é a melhor opção!"
         }
         savePrice(price: result)
+        tableViewController.fetchPrices()
     }
     
     @objc func clearResults() {
@@ -75,28 +74,6 @@ class HomeViewController: UIViewController {
         homeView.textFieldGasolina.text = ""
         homeView.labelResult.text = "Resultado"
     }
-    
-    //    func autenticarComFaceID() {
-    //        let contexto = LAContext()
-    //        var erro: NSError?
-    //        // Verifica se o dispositivo suporta Face ID (ou Touch ID)
-    //        if contexto.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &erro) {
-    //            let motivo = "Autentique-se para continuar."
-    //            contexto.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: motivo) { sucesso, erro in
-    //                DispatchQueue.main.async {
-    //                    if sucesso {
-    //                        print("✅ Autenticação com Face ID bem-sucedida!")
-    //                        // Prossiga para próxima tela ou desbloqueie a funcionalidade
-    //                    } else {
-    //                        print("❌ Falha na autenticação: \(erro?.localizedDescription ?? "Erro desconhecido")")
-    //                    }
-    //                }
-    //            }
-    //        } else {
-    //            print("⚠️ Face ID/Touch ID não está disponível: \(erro?.localizedDescription ?? "Erro desconhecido")")
-    //        }
-    //    }
-    
     
 }
 

@@ -27,6 +27,15 @@ class TabBarController: UITabBarController {
         
         self.viewControllers = [homeNavigationController, tableNavigationController]
         
+        // Cor do ícone selecionado
+        tabBar.tintColor = .white
+        
+        // Cor dos ícones não selecionados
+        tabBar.unselectedItemTintColor = .gray
+        
+        // Cor de fundo (opcional)
+        tabBar.barTintColor = .black
+        
     }
     
 }

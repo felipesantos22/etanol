@@ -11,8 +11,8 @@ class HomeView: UIView {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        //imageView.image = UIImage(named: "gasolina")
-        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "etanol")
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -114,7 +114,7 @@ class HomeView: UIView {
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            imageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             
             label.topAnchor.constraint(equalTo: topAnchor, constant: 150),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -143,6 +143,7 @@ class HomeView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .gray
         setupViews()
     }
     
